@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BuildAttributionWarningsFilter">
+    <option name="noGCSettingWarning" value="true" />
+  </component>
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/shape_button03.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_category_add.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_dashboard_admin.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_dashboard_user.xml" value="0.11388888888888889" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.11388888888888889" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.16843971631205673" />
+        <entry key="app/src/main/res/layout/activity_pdf_add.xml" value="0.26358695652173914" />
+        <entry key="app/src/main/res/layout/activity_pdf_list_admin.xml" value="0.36041666666666666" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.11388888888888889" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.16843971631205673" />
+        <entry key="app/src/main/res/layout/row_category.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/row_pdf_admin.xml" value="0.359375" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
