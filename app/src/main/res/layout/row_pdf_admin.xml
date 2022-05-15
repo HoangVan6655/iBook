@@ -90,11 +90,11 @@
         <ImageButton
             android:id="@+id/moreBtn"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:background="@android:color/transparent"
             android:padding="5dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_more_black"
-            android:layout_alignParentEnd="true"/>
+            android:src="@drawable/ic_more_black" />
 
     </RelativeLayout>
 

@@ -2,6 +2,8 @@ package com.example.ibook.adapters;
 
 import static com.example.ibook.Constants.MAX_BYTES_PDF;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.content.Context;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ibook.MyApplication;
@@ -49,10 +52,17 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
     
     private static final String TAG = "PDF_ADAPTER_TAG";
 
+    private ProgressDialog progressDialog;
+
     public AdapterPdfAdmin(Context context, ArrayList<ModelPdf> pdfArrayList) {
         this.context = context;
         this.pdfArrayList = pdfArrayList;
         this.filterList = pdfArrayList;
+
+        //init progress dialog
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle("Vui lòng chờ");
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 
     @NonNull
@@ -85,6 +95,88 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
         loadPdfFromUrl(model, holder);
         loadPdfSize(model, holder);
 
+        //handle click show dialog with option edit (1), delete (2)
+        holder.moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moreOptionsDialog(model, holder);
+            }
+        });
+
+    }
+
+    private void moreOptionsDialog(ModelPdf model, HolderPdfAdmin holder) {
+        //options to show in dialog
+        String[] options = {"Tuỳ Chỉnh Sách", "Xoá Sách"};
+
+        //alert diaglog
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Tuỳ Chọn")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //handle dialog option click
+                        if (which==0) {
+                            //edit sách
+
+                        }
+                        else if (which==1) {
+                            //xoá xách
+                            deleteBook(model, holder);
+                        }
+                    }
+                })
+                .show();
+
+    }
+
+    private void deleteBook(ModelPdf model, HolderPdfAdmin holder) {
+        String bookId = model.getId();
+        String bookUrl = model.getUrl();
+        String bookTitle = model.getTitle();
+
+        Log.d(TAG, "deleteBook: Deleting...");
+        progressDialog.setMessage("Đang xoá "+bookTitle+" ...");
+        progressDialog.show();
+
+        Log.d(TAG, "deleteBook: Deleting from storage ...");
+        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(bookUrl);
+        storageReference.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: Deleted from storage");
+
+                        Log.d(TAG, "onSuccess: Now deleting info from db");
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
+                        reference.child(bookId)
+                                .removeValue()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "onSuccess: Delete from db too");
+                                        progressDialog.dismiss();
+                                        Toast.makeText(context, "Xoá sách thành công...", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: Failed to delete from db due to "+e.getMessage());
+                                        progressDialog.dismiss();
+                                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: Failed to delete from storage due to "+e.getMessage());
+                        progressDialog.dismiss();
+                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void loadPdfSize(ModelPdf model, HolderPdfAdmin holder) {
@@ -188,7 +280,7 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
         String categoryId = ""+model.getCategoryId();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Categories");
-        ref.child(categoryId)
+        ref.child(categoryId).orderByChild("categoryId")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

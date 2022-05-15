@@ -85,7 +85,7 @@ public class PdfListAdminActivity extends AppCompatActivity {
         //init list before adding data
         pdfArrayList = new ArrayList<>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
-        ref.orderByChild("categoryId").equalTo(categoryId)
+        ref.orderByChild("categoryID").equalTo(categoryId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
