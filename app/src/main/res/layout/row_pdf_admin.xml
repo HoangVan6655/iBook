@@ -56,14 +56,14 @@
             android:ellipsize="end"/>
 
         <TextView
-            android:id="@+id/categoryTv"
+            android:id="@+id/dateTv"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Danh Mục"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:text="Danh Mục" />
 
         <TextView
             android:id="@+id/sizeTv"
@@ -72,18 +72,6 @@
             android:layout_height="wrap_content"
             android:text="13 MB"
             android:layout_toEndOf="@id/pdfRl"
-            android:layout_alignParentBottom="true"
-            android:maxLines="1"/>
-
-        <TextView
-            android:id="@+id/dateTv"
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="dd/MM/yyyy"
-            android:layout_toEndOf="@id/sizeTv"
-            android:layout_toStartOf="@+id/categoryTv"
-            android:textAlignment="center"
             android:layout_alignParentBottom="true"
             android:maxLines="1"/>
 

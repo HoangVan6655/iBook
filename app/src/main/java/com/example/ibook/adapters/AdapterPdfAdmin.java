@@ -4,6 +4,7 @@ import static com.example.ibook.Constants.MAX_BYTES_PDF;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.content.Context;
@@ -21,6 +22,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ibook.MyApplication;
+import com.example.ibook.PdfEditActivity;
+import com.example.ibook.PdfListAdminActivity;
 import com.example.ibook.databinding.RowPdfAdminBinding;
 import com.example.ibook.filters.FilterPdfAdmin;
 import com.example.ibook.models.ModelPdf;
@@ -91,7 +94,6 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
         holder.dateTv.setText(formattedDate);
         
         //load further details like category, pdf from url, pdf size in seprate functions
-        loadCategory(model, holder);
         loadPdfFromUrl(model, holder);
         loadPdfSize(model, holder);
 
@@ -106,6 +108,10 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
     }
 
     private void moreOptionsDialog(ModelPdf model, HolderPdfAdmin holder) {
+        String bookId = model.getId();
+        String bookUrl = model.getUrl();
+        String bookTitle = model.getTitle();
+
         //options to show in dialog
         String[] options = {"Tuỳ Chỉnh Sách", "Xoá Sách"};
 
@@ -118,7 +124,9 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
                         //handle dialog option click
                         if (which==0) {
                             //edit sách
-
+                            Intent intent = new Intent(context, PdfEditActivity.class);
+                            intent.putExtra("BookId", bookId);
+                            context.startActivity(intent);
                         }
                         else if (which==1) {
                             //xoá xách
@@ -274,30 +282,6 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
                 });
     }
 
-    private void loadCategory(ModelPdf model, HolderPdfAdmin holder) {
-        //get category using categoryId
-
-        String categoryId = ""+model.getCategoryId();
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Categories");
-        ref.child(categoryId).orderByChild("categoryId")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        //get category
-                        String category = ""+snapshot.child("category").getValue();
-
-                        //set to category text vỉew
-                        holder.categoryTv.setText(category);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-    }
-
     @Override
     public int getItemCount() {
         return pdfArrayList.size();
@@ -325,7 +309,6 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
             progressBar = binding.progressBar;
             titleTv = binding.titleTv;
             descriptionTv = binding.descriptionTv;
-            categoryTv = binding.categoryTv;
             sizeTv = binding.sizeTv;
             dateTv = binding.dateTv;
             moreBtn = binding.moreBtn;
