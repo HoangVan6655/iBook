@@ -46,7 +46,7 @@ public class PdfEditActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //bookid get from intent started from adapterpdfadmin
-        bookId = getIntent().getStringExtra("bookId");
+        bookId = getIntent().getStringExtra("BookId");
 
         //setup progress dialog
         progressDialog = new ProgressDialog(this);
