@@ -22,4 +22,5 @@ public class MyApplication extends Application {
         String date = DateFormat.format("dd/MM/yyyy",cal).toString();
         return date;
     }
+
 }
