@@ -1,7 +1,7 @@
 package com.example.ibook.models;
 
 public class ModelPdf {
-    String uid, id, title, description, categoryId, url;
+    String uid, id, title, description, categoryID, url;
     long timestamp, viewsCount, downloadsCount;
 
     public ModelPdf() {
@@ -12,7 +12,7 @@ public class ModelPdf {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.categoryId = categoryId;
+        this.categoryID = categoryId;
         this.url = url;
         this.timestamp = timestamp;
         this.viewsCount = viewsCount;
@@ -51,12 +51,12 @@ public class ModelPdf {
         this.description = description;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getCategoryID() {
+        return categoryID;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
     }
 
     public String getUrl() {
