@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
+            android:name=".PdfViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PdfDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".PdfEditActivity"
             android:exported="false" />
         <activity

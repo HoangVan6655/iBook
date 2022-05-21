@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class MyApplication extends Application {
@@ -204,6 +205,38 @@ public class MyApplication extends Application {
                         String category = ""+snapshot.child("category").getValue();
                         System.out.println("du lieu " + categoryId);
                         categoryTv.setText(category);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    public static void incrementBookViewCount(String bookId){
+        //1 get book views count
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
+        ref.child(bookId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //get views count
+                        String viewsCount = ""+snapshot.child("viewsCount").getValue();
+                        //in case of null replace with 0
+                        if (viewsCount.equals("") || viewsCount.equals("null")){
+                            viewsCount = "0";
+                        }
+
+                        //2 increment views count
+                        long newViewsCount = Long.parseLong(viewsCount) + 1;
+
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("viewsCount", newViewsCount);
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
+                        reference.child(bookId)
+                                .updateChildren(hashMap);
                     }
 
                     @Override

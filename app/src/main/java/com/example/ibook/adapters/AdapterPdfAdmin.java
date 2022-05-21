@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ibook.MyApplication;
+import com.example.ibook.PdfDetailActivity;
 import com.example.ibook.PdfEditActivity;
 import com.example.ibook.databinding.RowPdfAdminBinding;
 import com.example.ibook.filters.FilterPdfAdmin;
@@ -103,6 +104,15 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
             }
         });
 
+        //handle book/pdf, open pdf details page, pass pdf/book id to get details of it
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PdfDetailActivity.class);
+                intent.putExtra("bookId", pdfId);
+                context.startActivity(intent);
+            }
+        });
     }
 
     private void moreOptionsDialog(ModelPdf model, HolderPdfAdmin holder) {
