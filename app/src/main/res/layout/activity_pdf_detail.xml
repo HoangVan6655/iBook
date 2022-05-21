@@ -37,7 +37,7 @@
 
     <!--All Content under scrollView-->
     <ScrollView
-        android:layout_above="@+id/readBookBtn"
+        android:layout_above="@+id/bookOptionsLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbarRL"
@@ -222,14 +222,34 @@
 
     </ScrollView>
 
-    <!--Button: Open to view pdf-->
-    <Button
-        android:id="@+id/readBookBtn"
+    <!--Layout for button at bottom-->
+    <LinearLayout
+        android:id="@+id/bookOptionsLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:drawableTop="@drawable/ic_book_white"
-        android:text="Đọc Tiếp"
-        android:background="@color/design_default_color_primary"/>
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <!--Button: Open to view pdf-->
+        <Button
+            android:id="@+id/readBookBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_book_white"
+            android:text="Đọc Tiếp"
+            android:background="@color/design_default_color_primary"/>
+
+        <!--Button: Download pdf-->
+        <Button
+            android:id="@+id/downloadBookBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_download_white"
+            android:text="Tải Sách"
+            android:background="@color/design_default_color_primary"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

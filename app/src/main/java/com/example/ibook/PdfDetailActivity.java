@@ -1,11 +1,20 @@
 package com.example.ibook;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.PackageManagerCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.ibook.databinding.ActivityPdfDetailBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +29,10 @@ public class PdfDetailActivity extends AppCompatActivity {
     private ActivityPdfDetailBinding binding;
 
     //pdf id, get from intent
-    String bookId;
+    String bookId, bookTitle, bookUrl;
+
+    private static final String TAG_DOWNLOAD = "DOWNLOAD_TAG";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +43,9 @@ public class PdfDetailActivity extends AppCompatActivity {
         //get data from intent e.g bookId
         Intent intent = getIntent();
         bookId = intent.getStringExtra("bookId");
+
+        //at start hide download button, because we need book url that we will load later in function loadBookDetails();
+        binding.downloadBookBtn.setVisibility(View.GONE);
         
         loadBookDetails();
         //increment book view count, whenever this page starts
@@ -53,7 +68,36 @@ public class PdfDetailActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
+        //handle click download pdf
+        binding.downloadBookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG_DOWNLOAD, "onClick: Checking permission");
+                if (ContextCompat.checkSelfPermission(PdfDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    Log.d(TAG_DOWNLOAD, "onClick: Permission already granted, can download book");
+                    MyApplication.downloadBook(PdfDetailActivity.this, ""+bookId, ""+bookTitle, ""+bookUrl);
+                }
+                else {
+                    Log.d(TAG_DOWNLOAD, "onClick: Permission was not granted, request permission...");
+                    requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }
+            }
+        });
     }
+
+    //request storage permission
+    private ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    Log.d(TAG_DOWNLOAD, "Permission Granted ");
+                    MyApplication.downloadBook(this,""+bookId, ""+bookTitle, ""+bookUrl);
+                }
+                else {
+                    Log.d(TAG_DOWNLOAD, "Permissipm was denied... ");
+                    Toast.makeText(this,"Permissipm was denied... ", Toast.LENGTH_SHORT).show();
+                }
+            });
 
     private void loadBookDetails() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
@@ -62,13 +106,16 @@ public class PdfDetailActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         //get data
-                        String title = ""+snapshot.child("title").getValue();
+                        bookTitle = ""+snapshot.child("title").getValue();
                         String description = ""+snapshot.child("description").getValue();
                         String categoryId = ""+snapshot.child("categoryID").getValue();
                         String viewsCount = ""+snapshot.child("viewsCount").getValue();
                         String downloadsCount = ""+snapshot.child("downloadsCount").getValue();
-                        String url = ""+snapshot.child("url").getValue();
+                        bookUrl = ""+snapshot.child("url").getValue();
                         String timestamp = ""+snapshot.child("timestamp").getValue();
+
+                        //required data is loaded, show download button
+                        binding.downloadBookBtn.setVisibility(View.VISIBLE);
 
                         //format date
                         String date = MyApplication.formatTimestamp(Long.parseLong(timestamp));
@@ -78,19 +125,19 @@ public class PdfDetailActivity extends AppCompatActivity {
                                 binding.categoryTv
                         );
                         MyApplication.loadPdfFromUrlSinglePage(
-                                ""+url,
-                                ""+title,
+                                ""+bookUrl,
+                                ""+bookTitle,
                                 binding.pdfView,
                                 binding.progressBar
                         );
                         MyApplication.loadPdfSize(
-                                ""+url,
-                                ""+title,
+                                ""+bookUrl,
+                                ""+bookTitle,
                                 binding.sizeTv
                         );
 
                         //set data
-                        binding.titleTv.setText(title);
+                        binding.titleTv.setText(bookTitle);
                         binding.descriptionTv.setText(description);
                         binding.viewTv.setText(viewsCount.replace("null", "N/A"));
                         binding.downloadsTv.setText(downloadsCount.replace("null", "N/A"));
