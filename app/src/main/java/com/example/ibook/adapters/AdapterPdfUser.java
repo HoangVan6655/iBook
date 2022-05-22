@@ -78,7 +78,8 @@ public class AdapterPdfUser extends RecyclerView.Adapter<AdapterPdfUser.HolderPd
                 ""+pdfUrl,
                 ""+title,
                 holder.pdfView,
-                holder.progressBar
+                holder.progressBar,
+                null
         );
         MyApplication.loadPdfSize(
                 ""+pdfUrl,

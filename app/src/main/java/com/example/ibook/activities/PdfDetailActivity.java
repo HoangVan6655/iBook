@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -15,7 +16,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.ibook.MyApplication;
+import com.example.ibook.R;
 import com.example.ibook.databinding.ActivityPdfDetailBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,8 +33,11 @@ public class PdfDetailActivity extends AppCompatActivity {
     //pdf id, get from intent
     String bookId, bookTitle, bookUrl;
 
-    private static final String TAG_DOWNLOAD = "DOWNLOAD_TAG";
+    boolean isInMyFavorite = false;
 
+    private FirebaseAuth firebaseAuth;
+
+    private static final String TAG_DOWNLOAD = "DOWNLOAD_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,11 @@ public class PdfDetailActivity extends AppCompatActivity {
 
         //at start hide download button, because we need book url that we will load later in function loadBookDetails();
         binding.downloadBookBtn.setVisibility(View.GONE);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null){
+            checkIsFavorite();
+        }
         
         loadBookDetails();
         //increment book view count, whenever this page starts
@@ -80,6 +91,32 @@ public class PdfDetailActivity extends AppCompatActivity {
                 else {
                     Log.d(TAG_DOWNLOAD, "onClick: Permission was not granted, request permission...");
                     requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }
+            }
+        });
+
+        //handle click, add/remove favorite
+        binding.favoriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (firebaseAuth.getCurrentUser() != null){
+                    Toast.makeText(PdfDetailActivity.this, "Bạn cần đăng nhập để thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if (isInMyFavorite) {
+                        //in favorite, remove from favorite
+                        MyApplication.removeFromFavorite(
+                                PdfDetailActivity.this,
+                                bookId
+                        );
+                    }
+                    else {
+                        //not in favorite, add to favorite
+                        MyApplication.addToFavorite(
+                                PdfDetailActivity.this,
+                                bookId
+                        );
+                    }
                 }
             }
         });
@@ -127,13 +164,19 @@ public class PdfDetailActivity extends AppCompatActivity {
                                 ""+bookUrl,
                                 ""+bookTitle,
                                 binding.pdfView,
-                                binding.progressBar
+                                binding.progressBar,
+                                binding.pagesTv
                         );
                         MyApplication.loadPdfSize(
                                 ""+bookUrl,
                                 ""+bookTitle,
                                 binding.sizeTv
                         );
+//                        MyApplication.loadPdfPageCount(
+//                                PdfDetailActivity.this,
+//                                ""+bookUrl,
+//                                binding.pagesTv
+//                        );
 
                         //set data
                         binding.titleTv.setText(bookTitle);
@@ -142,6 +185,31 @@ public class PdfDetailActivity extends AppCompatActivity {
                         binding.downloadsTv.setText(downloadsCount.replace("null", "N/A"));
                         binding.dateTv.setText(date);
 
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    public void checkIsFavorite(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(firebaseAuth.getUid()).child("Favorites").child(bookId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        isInMyFavorite = snapshot.exists(); //true if exists, false if not exists
+                        if (isInMyFavorite) {
+                            //exists in favorite
+                            binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.ic_favorite_white, 0, 0);
+                            binding.favoriteBtn.setText("Xoá Khỏi Yêu Thích");
+                        }
+                        else {
+                            binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.ic_favorite_border_white, 0, 0);
+                            binding.favoriteBtn.setText("Thêm Vào Yêu Thích");
+                        }
                     }
 
                     @Override

@@ -7,6 +7,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_favorite_white.xml" value="0.1885" />
         <entry key="app/src/main/res/drawable/shape_button03.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/tab_background_selected.xml" value="0.1885" />
         <entry key="app/src/main/res/drawable/tab_background_unselected.xml" value="0.1885" />

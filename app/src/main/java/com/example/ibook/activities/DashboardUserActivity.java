@@ -58,7 +58,8 @@ public class DashboardUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 firebaseAuth.signOut();
-                checkUser();
+                startActivity(new Intent(DashboardUserActivity.this, MainActivity.class));
+                finish();
             }
         });
     }
@@ -177,8 +178,7 @@ public class DashboardUserActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser==null){
             //không đăng nhập
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            binding.subTitleTv.setText("Chưa Đăng Nhập");
         }
         else {
             //đã đăng nhập
