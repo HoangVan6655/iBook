@@ -18,30 +18,30 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
         <activity
-            android:name=".PdfViewActivity"
+            android:name=".activities.PdfViewActivity"
             android:exported="false" />
         <activity
-            android:name=".PdfDetailActivity"
+            android:name=".activities.PdfDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".PdfEditActivity"
+            android:name=".activities.PdfEditActivity"
             android:exported="false" />
         <activity
-            android:name=".PdfListAdminActivity"
+            android:name=".activities.PdfListAdminActivity"
             android:exported="false" />
         <activity
-            android:name=".PdfAddActivity"
+            android:name=".activities.PdfAddActivity"
             android:exported="false" />
         <activity
-            android:name=".CategoryAddActivity"
+            android:name=".activities.CategoryAddActivity"
             android:exported="false" />
-        <activity android:name=".DashboardAdminActivity" />
-        <activity android:name=".DashboardUserActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activities.DashboardAdminActivity" />
+        <activity android:name=".activities.DashboardUserActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.MainActivity" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

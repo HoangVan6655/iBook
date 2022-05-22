@@ -1,4 +1,4 @@
-package com.example.ibook;
+package com.example.ibook.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

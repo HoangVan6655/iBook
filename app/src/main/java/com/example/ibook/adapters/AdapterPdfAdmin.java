@@ -18,8 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ibook.MyApplication;
-import com.example.ibook.PdfDetailActivity;
-import com.example.ibook.PdfEditActivity;
+import com.example.ibook.activities.PdfDetailActivity;
+import com.example.ibook.activities.PdfEditActivity;
 import com.example.ibook.databinding.RowPdfAdminBinding;
 import com.example.ibook.filters.FilterPdfAdmin;
 import com.example.ibook.models.ModelPdf;

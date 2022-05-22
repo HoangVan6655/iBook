@@ -8,9 +8,12 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_button03.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/tab_background_selected.xml" value="0.1885" />
+        <entry key="app/src/main/res/drawable/tab_background_unselected.xml" value="0.1885" />
+        <entry key="app/src/main/res/drawable/tab_selector.xml" value="0.1885" />
         <entry key="app/src/main/res/layout/activity_category_add.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_dashboard_admin.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_dashboard_user.xml" value="0.11388888888888889" />
+        <entry key="app/src/main/res/layout/activity_dashboard_user.xml" value="0.32169986300998277" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.11388888888888889" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.16843971631205673" />
         <entry key="app/src/main/res/layout/activity_pdf_add.xml" value="0.26358695652173914" />
@@ -20,8 +23,10 @@
         <entry key="app/src/main/res/layout/activity_pdf_view.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.11388888888888889" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.16843971631205673" />
+        <entry key="app/src/main/res/layout/fragment_books_user.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/row_category.xml" value="0.1" />
         <entry key="app/src/main/res/layout/row_pdf_admin.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/row_pdf_user.xml" value="0.36041666666666666" />
       </map>
     </option>
   </component>

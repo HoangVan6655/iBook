@@ -1,9 +1,8 @@
-package com.example.ibook;
+package com.example.ibook.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.accessibilityservice.GestureDescription;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;

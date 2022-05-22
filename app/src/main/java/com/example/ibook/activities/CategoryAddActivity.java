@@ -1,4 +1,4 @@
-package com.example.ibook;
+package com.example.ibook.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
