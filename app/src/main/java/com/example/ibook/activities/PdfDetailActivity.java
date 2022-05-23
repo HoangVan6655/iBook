@@ -13,17 +13,22 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.example.ibook.MyApplication;
 import com.example.ibook.R;
+import com.example.ibook.adapters.AdapterPdfFavorite;
 import com.example.ibook.databinding.ActivityPdfDetailBinding;
+import com.example.ibook.models.ModelPdf;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class PdfDetailActivity extends AppCompatActivity {
 

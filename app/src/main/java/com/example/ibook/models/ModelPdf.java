@@ -3,20 +3,22 @@ package com.example.ibook.models;
 public class ModelPdf {
     String uid, id, title, description, categoryID, url;
     long timestamp, viewsCount, downloadsCount;
+    boolean favorite;
 
     public ModelPdf() {
     }
 
-    public ModelPdf(String uid, String id, String title, String description, String categoryId, String url, long timestamp, long viewsCount, long downloadsCount) {
+    public ModelPdf(String uid, String id, String title, String description, String categoryID, String url, long timestamp, long viewsCount, long downloadsCount, boolean favorite) {
         this.uid = uid;
         this.id = id;
         this.title = title;
         this.description = description;
-        this.categoryID = categoryId;
+        this.categoryID = categoryID;
         this.url = url;
         this.timestamp = timestamp;
         this.viewsCount = viewsCount;
         this.downloadsCount = downloadsCount;
+        this.favorite = favorite;
     }
 
     public String getUid() {
@@ -89,5 +91,13 @@ public class ModelPdf {
 
     public void setDownloadsCount(long downloadsCount) {
         this.downloadsCount = downloadsCount;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }

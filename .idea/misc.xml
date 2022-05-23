@@ -30,6 +30,7 @@
         <entry key="app/src/main/res/layout/fragment_books_user.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/row_category.xml" value="0.1" />
         <entry key="app/src/main/res/layout/row_pdf_admin.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/row_pdf_favorite.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/row_pdf_user.xml" value="0.36041666666666666" />
       </map>
     </option>
