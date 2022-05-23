@@ -22,9 +22,11 @@ import android.widget.Toast;
 
 import com.example.ibook.MyApplication;
 import com.example.ibook.R;
+import com.example.ibook.adapters.AdapterComment;
 import com.example.ibook.adapters.AdapterPdfFavorite;
 import com.example.ibook.databinding.ActivityPdfDetailBinding;
 import com.example.ibook.databinding.DialogCommentAddBinding;
+import com.example.ibook.models.ModelComment;
 import com.example.ibook.models.ModelPdf;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,6 +58,10 @@ public class PdfDetailActivity extends AppCompatActivity {
     //progress dialog
     private ProgressDialog progressDialog;
 
+    private ArrayList<ModelComment> commentArrayList;
+
+    private AdapterComment adapterComment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +86,7 @@ public class PdfDetailActivity extends AppCompatActivity {
         }
         
         loadBookDetails();
+        loadComments();
         //increment book view count, whenever this page starts
         MyApplication.incrementBookViewCount(bookId);
 
@@ -156,6 +163,37 @@ public class PdfDetailActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void loadComments() {
+        //init arraylist before adding data into it
+        commentArrayList = new ArrayList<>();
+
+        //db path to load comments
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
+        ref.child(bookId).child("Comments")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //clear array list before start adding data into it
+                        commentArrayList.clear();
+                        for (DataSnapshot ds: snapshot.getChildren()) {
+                            //get data as model, spellings of cariables in model must be as same as in firebase
+                            ModelComment model = ds.getValue(ModelComment.class);
+                            //add to arraylist
+                            commentArrayList.add(model);
+                        }
+                        //setup adapter
+                        adapterComment = new AdapterComment(PdfDetailActivity.this, commentArrayList);
+                        //set adapter to recyclerview
+                        binding.commentsRv.setAdapter(adapterComment);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private String comment = "";

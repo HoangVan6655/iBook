@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back01"
+    android:background="@color/white"
     tools:context=".activities.PdfDetailActivity">
 
     <!--ToolBar-->
@@ -36,7 +36,7 @@
     </RelativeLayout>
 
     <!--All Content under scrollView-->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_above="@+id/bookOptionsLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -247,19 +247,19 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/gray03" />
 
-            <TextView
-                android:id="@+id/commentsLabelTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:padding="5dp"
-                android:text="Bình Luận"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/commentsLabelTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:padding="5dp"
+                    android:text="Bình Luận"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <!--Button: show comment add dialog-->
                 <ImageButton
@@ -271,11 +271,20 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_comment_add_black" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentsRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray04"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/row_comment"
+                    android:layout_below="@+id/addCommentBtn"/>
+
             </RelativeLayout>
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <!--Layout for button at bottom-->
     <LinearLayout
