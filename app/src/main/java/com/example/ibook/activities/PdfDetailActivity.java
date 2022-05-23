@@ -99,7 +99,7 @@ public class PdfDetailActivity extends AppCompatActivity {
         binding.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (firebaseAuth.getCurrentUser() != null){
+                if (firebaseAuth.getCurrentUser() == null){
                     Toast.makeText(PdfDetailActivity.this, "Bạn cần đăng nhập để thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -172,11 +172,6 @@ public class PdfDetailActivity extends AppCompatActivity {
                                 ""+bookTitle,
                                 binding.sizeTv
                         );
-//                        MyApplication.loadPdfPageCount(
-//                                PdfDetailActivity.this,
-//                                ""+bookUrl,
-//                                binding.pagesTv
-//                        );
 
                         //set data
                         binding.titleTv.setText(bookTitle);
@@ -194,7 +189,7 @@ public class PdfDetailActivity extends AppCompatActivity {
                 });
     }
 
-    public void checkIsFavorite(){
+    private void checkIsFavorite(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(firebaseAuth.getUid()).child("Favorites").child(bookId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {

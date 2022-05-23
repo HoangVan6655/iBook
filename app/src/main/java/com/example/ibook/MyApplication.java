@@ -365,43 +365,13 @@ public class MyApplication extends Application {
                 });
     }
 
-//    public static void loadPdfPageCount(Context context, String pdfUrl, TextView pagesTv) {
-//        //load pdf file from firebase storage using url
-//        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
-//        storageReference
-//                .getBytes(Constants.MAX_BYTES_PDF)
-//                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                    @Override
-//                    public void onSuccess(byte[] bytes) {
-//                        //file received
-//
-//                        //load pdf pages using PdfView Library
-//                        PDFView pdfView = new PDFView(context, null);
-//                        pdfView.fromBytes(bytes)
-//                                .onLoad(new OnLoadCompleteListener() {
-//                                    @Override
-//                                    public void loadComplete(int nbPages) {
-//                                        //pdf loaded from bytes we got from firebase storage, we can now show number of pages
-//                                        pagesTv.setText(""+nbPages);
-//                                    }
-//                                });
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        //file failed to receive
-//                    }
-//                });
-//    }
-
     public static void addToFavorite(Context context, String bookId){
         //we can add only if user is logged in
         //1 check if user is logged in
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() == null){
             //not logged in can add to favorite
-            Toast.makeText(context, "Bạn cần đăng nhập để thêm vào yêu thíchh", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Bạn cần đăng nhập để thêm vào yêu thích", Toast.LENGTH_SHORT).show();
         }
         else {
             long timestamp = System.currentTimeMillis();
@@ -431,11 +401,11 @@ public class MyApplication extends Application {
     }
 
     public static void removeFromFavorite(Context context, String bookId){
-        //we can add only if user is logged in
+        //we can add remove if user is logged in
         //1 check if user is logged in
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() == null){
-            //not logged in can removed from favorite
+            //not logged in can remove from favorite
             Toast.makeText(context, "Bạn cần đăng nhập để thêm vào yêu thíchh", Toast.LENGTH_SHORT).show();
         }
         else {
