@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/ic_favorite_white.xml" value="0.1885" />
         <entry key="app/src/main/res/drawable/shape_button03.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_rect01.xml" value="0.1885" />
+        <entry key="app/src/main/res/drawable/shape_rect02.xml" value="0.183" />
         <entry key="app/src/main/res/drawable/tab_background_selected.xml" value="0.1885" />
         <entry key="app/src/main/res/drawable/tab_background_unselected.xml" value="0.1885" />
         <entry key="app/src/main/res/drawable/tab_selector.xml" value="0.1885" />
@@ -27,8 +28,10 @@
         <entry key="app/src/main/res/layout/activity_profile_edit.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.11388888888888889" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.16843971631205673" />
+        <entry key="app/src/main/res/layout/dialog_comment_add.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_books_user.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/row_category.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/row_comment.xml" value="0.2536231884057971" />
         <entry key="app/src/main/res/layout/row_pdf_admin.xml" value="0.1" />
         <entry key="app/src/main/res/layout/row_pdf_favorite.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/row_pdf_user.xml" value="0.36041666666666666" />

@@ -3,15 +3,19 @@ package com.example.ibook.activities;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Toast;
@@ -20,7 +24,10 @@ import com.example.ibook.MyApplication;
 import com.example.ibook.R;
 import com.example.ibook.adapters.AdapterPdfFavorite;
 import com.example.ibook.databinding.ActivityPdfDetailBinding;
+import com.example.ibook.databinding.DialogCommentAddBinding;
 import com.example.ibook.models.ModelPdf;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +36,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 
 public class PdfDetailActivity extends AppCompatActivity {
 
@@ -44,6 +53,9 @@ public class PdfDetailActivity extends AppCompatActivity {
 
     private static final String TAG_DOWNLOAD = "DOWNLOAD_TAG";
 
+    //progress dialog
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +68,11 @@ public class PdfDetailActivity extends AppCompatActivity {
 
         //at start hide download button, because we need book url that we will load later in function loadBookDetails();
         binding.downloadBookBtn.setVisibility(View.GONE);
+
+        //init progres dialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Vui Lòng Chờ");
+        progressDialog.setCanceledOnTouchOutside(false);
 
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null){
@@ -125,7 +142,99 @@ public class PdfDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //handle click, show comment add dialog
+        binding.addCommentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //requirements: user must be logged in to add comment
+                if (firebaseAuth.getCurrentUser() == null) {
+                    Toast.makeText(PdfDetailActivity.this, "Bạn chưa đăng nhập...", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    addCommentDialog();
+                }
+            }
+        });
     }
+
+    private String comment = "";
+    private void addCommentDialog() {
+        //inflate bind view for dialog
+        DialogCommentAddBinding commentAddBinding = DialogCommentAddBinding.inflate(LayoutInflater.from(this));
+
+        //setup alert dialog builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialog);
+        builder.setView(commentAddBinding.getRoot());
+
+        //create and show alert dialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        //hanlde click dismis dialog
+        commentAddBinding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        //handle click add comment
+        commentAddBinding.submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //get data
+                comment = commentAddBinding.commentEt.getText().toString().trim();
+                //validateData
+                if (TextUtils.isEmpty(comment)){
+                    Toast.makeText(PdfDetailActivity.this, "Nhập Bình Luận...", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    alertDialog.dismiss();
+                    addComment();
+                }
+            }
+        });
+    }
+
+    private void addComment() {
+        //show progress
+        progressDialog.setMessage("Đang Đăng Bình Luận...");
+        progressDialog.show();
+
+        //timestamp for comment od, comment time
+        String timestamp = ""+System.currentTimeMillis();
+
+        //setup data to add in db for comment
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", ""+timestamp);
+        hashMap.put("bookId", ""+bookId);
+        hashMap.put("timestamp", ""+timestamp);
+        hashMap.put("comment", ""+comment);
+        hashMap.put("uid", ""+firebaseAuth.getUid());
+
+        //DB path to add data into it
+        //Books > bookId > Comments > commentId > commentData
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
+        ref.child(bookId).child("Comments").child(timestamp)
+                .setValue(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(PdfDetailActivity.this, "Bình luận đã được đăng...", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //failed to add comment
+                        progressDialog.dismiss();
+                        Toast.makeText(PdfDetailActivity.this, "Đã xảy ra lỗi khi đăng bình luận "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }//now we need to show the comments
+
 
     //request storage permission
     private ActivityResultLauncher<String> requestPermissionLauncher =
