@@ -109,14 +109,18 @@
           android:layout_height="wrap_content"
           android:text="Tài Khoản"
           android:textColor="@color/black"
-          android:textStyle="bold" />
+          android:textStyle="bold"
+          android:textAlignment="center"
+          android:textSize="12sp"/>
 
       <TextView
           android:id="@+id/accountTypeTv"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="N/A"
-          android:textColor="@color/black"/>
+          android:text="User"
+          android:textColor="@color/black"
+          android:textAlignment="center"
+          android:textSize="12sp"/>
 
     </LinearLayout>
 
@@ -133,14 +137,18 @@
           android:layout_height="wrap_content"
           android:text="Thành Viên"
           android:textColor="@color/black"
-          android:textStyle="bold" />
+          android:textStyle="bold"
+          android:textAlignment="center"
+          android:textSize="12sp"/>
 
       <TextView
           android:id="@+id/memberDateTv"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="N/A"
-          android:textColor="@color/black"/>
+          android:text="dd/MM/yyyy"
+          android:textColor="@color/black"
+          android:textAlignment="center"
+          android:textSize="12sp"/>
 
     </LinearLayout>
 
@@ -155,16 +163,48 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Sách Yêu Thích"
+          android:text="Yêu Thích"
           android:textColor="@color/black"
-          android:textStyle="bold" />
+          android:textStyle="bold"
+          android:textAlignment="center"
+          android:textSize="12sp"/>
 
       <TextView
           android:id="@+id/favoriteBookCountTv"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="N/A"
-          android:textColor="@color/black"/>
+          android:textColor="@color/black"
+          android:textAlignment="center"
+          android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <!--Account Status-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Trạng Thái Email"
+          android:textColor="@color/black"
+          android:textStyle="bold"
+          android:textAlignment="center"
+          android:textSize="12sp"/>
+
+      <TextView
+          android:id="@+id/accountStatusTv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Chưa Xác Nhận"
+          android:textColor="@color/black"
+          android:textAlignment="center"
+          android:textSize="12sp"/>
 
     </LinearLayout>
 

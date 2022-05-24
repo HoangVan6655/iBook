@@ -17,6 +17,9 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ProfileEditActivity"
             android:exported="false" />
         <activity
