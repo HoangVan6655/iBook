@@ -1,9 +1,7 @@
 package com.example.ibook.adapters;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +33,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.HolderCo
 
     private Context context;
 
-    private ArrayList<ModelComment> commentArrayList;
+    public ArrayList<ModelComment> commentArrayList;
 
     private FirebaseAuth firebaseAuth;
 
@@ -52,7 +50,6 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.HolderCo
     public HolderComment onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //inflate/bind the view
         binding = RowCommentBinding.inflate(LayoutInflater.from(context), parent, false);
-
         return new HolderComment(binding.getRoot());
     }
 
@@ -70,8 +67,15 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.HolderCo
         String date = MyApplication.formatTimestamp(Long.parseLong(timestamp));
 
         //set data
-        holder.dateTv.setText(date);
-        holder.commentTv.setText(comment);
+
+//        holder.dateTv.setText(date);
+//        try {
+//
+//            holder.commentTv.setText(comment);
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         loadUserDetails(modelComment, holder);
 

@@ -222,8 +222,7 @@ public class PdfDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //get data
-                comment = commentAddBinding.commentEt.getText().toString().trim();
-                //validateData
+                comment = commentAddBinding.commentEt.getText().toString().trim();//validateData
                 if (TextUtils.isEmpty(comment)){
                     Toast.makeText(PdfDetailActivity.this, "Nhập Bình Luận...", Toast.LENGTH_SHORT).show();
                 }
