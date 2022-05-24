@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "922590932476",
-    "project_id": "ibook-d2ca8",
-    "storage_bucket": "ibook-d2ca8.appspot.com"
+    "project_number": "872270410605",
+    "firebase_url": "https://ibook-team3-default-rtdb.firebaseio.com",
+    "project_id": "ibook-team3",
+    "storage_bucket": "ibook-team3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:922590932476:android:ff35a9888b8d39307a5679",
+        "mobilesdk_app_id": "1:872270410605:android:577e5493a8bacdf54ae064",
         "android_client_info": {
           "package_name": "com.example.ibook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "922590932476-hbqsvet30cevm8n40uaip6j90vmn1cpo.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.ibook",
-            "certificate_hash": "a40bc147892c96adfeca35cd78f1ca6be941b0e6"
-          }
-        },
-        {
-          "client_id": "922590932476-cu8pdrv3497q4b3qhirf8ke90s9n7n16.apps.googleusercontent.com",
+          "client_id": "872270410605-crifcakpfkjlpqlt76mal81dqies73kp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDyJaKdC9uDRp6MNDPTmC5X4cNyZ-snBOk"
+          "current_key": "AIzaSyAlApCesb4PsK1RurWH-DZR5yIfiori108"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "922590932476-cu8pdrv3497q4b3qhirf8ke90s9n7n16.apps.googleusercontent.com",
+              "client_id": "872270410605-crifcakpfkjlpqlt76mal81dqies73kp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
