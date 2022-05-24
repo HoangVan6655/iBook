@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.example.ibook.adapters.AdapterPdfUser;
 import com.example.ibook.databinding.FragmentBooksUserBinding;
-import com.example.ibook.models.ModelCategory;
 import com.example.ibook.models.ModelPdf;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

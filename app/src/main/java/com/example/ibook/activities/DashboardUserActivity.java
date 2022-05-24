@@ -87,9 +87,9 @@ public class DashboardUserActivity extends AppCompatActivity {
 
                 //load Categories - Static e.g. All, Most Viewed, Most Downloaded
                 //add data to models
-                ModelCategory modelAll = new ModelCategory("Tất Cả","01","","1");
-                ModelCategory modelMostViewed = new ModelCategory("Lượt Xem Cao","02","","1");
-                ModelCategory modelMostDownloaded= new ModelCategory("Lượt Tải Về Nhiều","03","","1");
+                ModelCategory modelAll = new ModelCategory("All","01","","1");
+                ModelCategory modelMostViewed = new ModelCategory("Most Viewed","02","","1");
+                ModelCategory modelMostDownloaded= new ModelCategory("Most Downloaded","03","","1");
                 //add models to list
                 categoryArrayList.add(modelAll);
                 categoryArrayList.add(modelMostViewed);

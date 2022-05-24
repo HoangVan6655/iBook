@@ -67,15 +67,8 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.HolderCo
         String date = MyApplication.formatTimestamp(Long.parseLong(timestamp));
 
         //set data
-
-//        holder.dateTv.setText(date);
-//        try {
-//
-//            holder.commentTv.setText(comment);
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        holder.commentTv.setText(comment);
+        holder.dateTv.setText(date);
 
         loadUserDetails(modelComment, holder);
 
@@ -182,6 +175,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.HolderCo
             profileIv = binding.profileIv;
             nameTv = binding.nameTv;
             commentTv = binding.commentTv;
+            dateTv = binding.dateTv;
         }
     }
 }

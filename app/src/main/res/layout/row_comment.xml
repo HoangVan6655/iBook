@@ -45,7 +45,7 @@
             android:layout_marginTop="5dp"
             android:text="dd/MM/yyyy"
             android:textColor="@color/gray02"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
         <!--TextView: Comment-->
         <TextView

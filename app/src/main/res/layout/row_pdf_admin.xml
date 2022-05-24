@@ -80,12 +80,12 @@
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dd/MM/yyyy"
-            android:layout_toEndOf="@id/sizeTv"
-            android:layout_toStartOf="@id/categoryTv"
-            android:textAlignment="center"
             android:layout_alignParentBottom="true"
-            android:maxLines="1"/>
+            android:layout_toStartOf="@id/categoryTv"
+            android:layout_toEndOf="@id/sizeTv"
+            android:maxLines="1"
+            android:text="dd/MM/yyyy"
+            android:textAlignment="center" />
 
         <ImageButton
             android:id="@+id/moreBtn"

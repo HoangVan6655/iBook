@@ -1,8 +1,7 @@
 package com.example.ibook.models;
 
 public class ModelCategory {
-    String category, id, uid;
-    String timestamp;
+    String category, id, uid, timestamp;
 
     public ModelCategory() {
     }
